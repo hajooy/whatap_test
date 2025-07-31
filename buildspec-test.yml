@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging into ECR..."
+      - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 386474451889.dkr.ecr.ap-northeast-2.amazonaws.com
+  build:
+    commands:
+      - echo "Pulling built image..."
+      - docker pull 386474451889.dkr.ecr.ap-northeast-2.amazonaws.com/joo-test:latest
+      - echo "Running container for test..."
+      - docker run -d --name test-container -p 8080:80 386474451889.dkr.ecr.ap-northeast-2.amazonaws.com/joo-test:latest
+      - sleep 5
+      - echo "Testing service..."
+      - curl -f http://localhost:8080 || (echo "Test failed!" && exit 1)
+  post_build:
+    commands:
+      - echo "Test passed!"
