@@ -21,8 +21,13 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:latest
       - printf '[{"name":"nginx","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-    
+      - echo "Verifying appspec.yml exists..."
+      - ls -la  # 디렉토리 내용 확인 (디버깅용)
+      - test -f appspec.yml && echo "appspec.yml found" || echo "appspec.yml not found"  # 존재 여부 확인
+
 artifacts:
   files:
-    - appspec.yml
+    - appspec.yml          # 루트 경로에 있는지 확인
     - imagedefinitions.json
+  discard-paths: no        # 경로 유지
+  base-directory: .        # 기본 디렉토리 지정 (루트 경로)
