@@ -27,7 +27,7 @@ phases:
 
 artifacts:
   files:
-    - appspec.yml          # 루트 경로에 있는지 확인
+    - appspec.yaml          # 루트 경로에 있는지 확인
     - imagedefinitions.json
   discard-paths: no        # 경로 유지
   base-directory: .        # 기본 디렉토리 지정 (루트 경로)
