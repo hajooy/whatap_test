@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "imagedefinitions.json"
+        TaskDefinition: arn:aws:ecs:ap-northeast-2:386474451889:task-definition/joo-nginx-fargate:latest"
         LoadBalancerInfo:
           ContainerName: "nginx"
           ContainerPort: 80
